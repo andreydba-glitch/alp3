@@ -14,7 +14,7 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#top" aria-label="ALP Market Group home">
-        <img src="assets/icons/logo-mark.svg" alt="" />
+        <img src="assets/icons/alp1.png" alt="" />
         <span>ALP Market Group</span>
       </a>
 
@@ -188,6 +188,63 @@
         </p>
       </div>
     </section>
+
+
+
+
+
+    <section id="contact" style="padding:80px 20px; background:#0b1120; color:white; text-align:center;">
+  
+  <h2 style="font-size:30px; margin-bottom:10px;">
+    Start Your Journey With ALP Market Group
+  </h2>
+  
+  <p style="color:#94a3b8; margin-bottom:40px;">
+    Leave your details and we will get back to you
+  </p>
+
+  <form id="contact-form" 
+        action="https://formspree.io/f/xvzvggdy" 
+        method="POST"
+        style="max-width:500px; margin:0 auto; opacity:0; transform:translateY(20px); transition:0.6s;">
+
+    <!-- Anti-spam -->
+    <input type="text" name="_gotcha" style="display:none">
+
+    <input type="text" name="name" placeholder="Your Name" required
+      style="width:100%; padding:14px; margin-bottom:15px; 
+      background:#020617; border:1px solid #1e293b; color:white; border-radius:8px;">
+
+    <input type="text" name="phone" placeholder="Your Phone Number" required
+      style="width:100%; padding:14px; margin-bottom:15px; 
+      background:#020617; border:1px solid #1e293b; color:white; border-radius:8px;">
+
+    <input type="email" name="email" placeholder="Your Email" required
+      style="width:100%; padding:14px; margin-bottom:15px; 
+      background:#020617; border:1px solid #1e293b; color:white; border-radius:8px;">
+
+    <textarea name="message" placeholder="Your Message" required rows="4"
+      style="width:100%; padding:14px; margin-bottom:20px; 
+      background:#020617; border:1px solid #1e293b; color:white; border-radius:8px;"></textarea>
+
+    <button type="submit" id="submit-btn"
+      style="width:100%; padding:14px; background:#3b82f6; 
+      border:none; border-radius:8px; color:white; font-weight:bold; 
+      cursor:pointer; transition:0.3s;">
+      
+      Send Message
+    </button>
+
+    <!-- Success message -->
+    <p id="success-message" style="display:none; color:#22c55e; margin-top:20px;">
+      ✅ Thank you! We will contact you soon.
+    </p>
+
+  </form>
+</section>
+
+
+
   </main>
 
   <footer class="site-footer">
@@ -213,5 +270,50 @@
       });
     }
   </script>
+
+  <script>
+// animation on scroll
+const form = document.getElementById("contact-form");
+
+window.addEventListener("scroll", () => {
+  const rect = form.getBoundingClientRect();
+  if (rect.top < window.innerHeight - 100) {
+    form.style.opacity = "1";
+    form.style.transform = "translateY(0)";
+  }
+});
+
+// submit handler
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById("submit-btn");
+  const success = document.getElementById("success-message");
+
+  btn.innerText = "Sending...";
+  btn.disabled = true;
+
+  const data = new FormData(form);
+
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (response.ok) {
+    form.reset();
+    success.style.display = "block";
+    btn.innerText = "Sent ✓";
+  } else {
+    btn.innerText = "Error. Try again";
+    btn.disabled = false;
+  }
+});
+</script>
+
+
+
+
 </body>
 </html>
